@@ -1,3 +1,6 @@
+const CARD_WIDTH = 71
+const CARD_HEIGHT = 95
+
 const suits = ['hearts', 'clubs', 'diamonds', 'spades']
 const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -7,33 +10,23 @@ export function Card({ rank, suit }: { rank: string; suit: string }) {
   const suitIndex = suits.indexOf(suit)
   const rankIndex = ranks.indexOf(rank)
 
-  const cardWidth = 71
-  const cardHeight = 95
-  const offsetX = -rankIndex * cardWidth
-  const offsetY = -suitIndex * cardHeight
+  const offsetX = -rankIndex * CARD_WIDTH * scaleFactor
+  const offsetY = -suitIndex * CARD_HEIGHT * scaleFactor
 
   return (
     <div
       style={{
-        width: cardWidth * scaleFactor,
-        height: cardHeight * scaleFactor,
-        transform: `scale(${scaleFactor})`,
-        transformOrigin: 'top left',
-        display: 'inline-block',
+        width: CARD_WIDTH * scaleFactor + 2,
+        height: CARD_HEIGHT * scaleFactor + 2,
+        backgroundColor: '#FFFFFF',
+        backgroundImage: "url('/balatro-card-sprites.png')",
+        backgroundPosition: `${offsetX}px ${offsetY}px`,
+        backgroundSize: `${13 * CARD_WIDTH * 2}px ${4 * CARD_HEIGHT * 2}px`,
+        backgroundRepeat: 'no-repeat',
+        borderRadius: '8px',
+        border: 'solid 1px #AAAAAA',
         imageRendering: 'pixelated',
       }}
-    >
-      <div
-        style={{
-          width: cardWidth,
-          height: cardHeight,
-          backgroundColor: '#FFFFFF',
-          backgroundImage: "url('/balatro-card-sprites.png')",
-          backgroundPosition: `${offsetX}px ${offsetY}px`,
-          backgroundRepeat: 'no-repeat',
-          borderRadius: '4px',
-        }}
-      />
-    </div>
+    />
   )
 }

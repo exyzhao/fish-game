@@ -1,6 +1,5 @@
 import Image, { type ImageProps } from 'next/image'
 import { Button } from '@repo/ui/button'
-import styles from './page.module.css'
 import { Card } from '../../../packages/ui/src/card'
 
 type Props = Omit<ImageProps, 'src'> & {
@@ -19,89 +18,42 @@ const ThemeImage = (props: Props) => {
   )
 }
 
+const cardsToShow = [
+  { rank: '2', suit: 'diamonds' },
+  { rank: '10', suit: 'clubs' },
+  { rank: 'K', suit: 'hearts' },
+  { rank: 'A', suit: 'spades' },
+]
+
+function StackedCards({ cards }: { cards: { rank: string; suit: string }[] }) {
+  return (
+    <div className="relative h-[190px] w-[600px]">
+      {cards.map((card, index) => (
+        <div
+          key={index}
+          className="absolute"
+          style={{
+            left: `${index * 90}px`,
+            // transform: `rotate(${index * 5}deg)`,
+          }}
+        >
+          <Card rank={card.rank} suit={card.suit} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div>
-          <Card rank="10" suit="spades" />
-          <Card rank="Q" suit="hearts" />
+    <div>
+      <main>
+        <div className="h-10 w-10 bg-amber-300"></div>
+        {/* <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"> */}
+        <div className="">
+          <StackedCards cards={cardsToShow} />
         </div>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turbo.build/repo/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turbo.build?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turbo.build →
-        </a>
-      </footer>
     </div>
   )
 }
