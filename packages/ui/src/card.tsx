@@ -15,6 +15,8 @@ const ranks = [
   "A",
 ];
 
+const scaleFactor = 2;
+
 export function Card({ rank, suit }: { rank: string; suit: string }) {
   const suitIndex = suits.indexOf(suit);
   const rankIndex = ranks.indexOf(rank);
@@ -27,14 +29,25 @@ export function Card({ rank, suit }: { rank: string; suit: string }) {
   return (
     <div
       style={{
-        width: cardWidth,
-        height: cardHeight,
-        backgroundColor: "#FFFFFF",
-        backgroundImage: "url('/balatro-card-sprites.png')",
-        backgroundPosition: `${offsetX}px ${offsetY}px`,
-        backgroundRepeat: "no-repeat",
-        borderRadius: "4px",
+        width: cardWidth * scaleFactor,
+        height: cardHeight * scaleFactor,
+        transform: `scale(${scaleFactor})`,
+        transformOrigin: "top left",
+        display: "inline-block",
+        imageRendering: "pixelated",
       }}
-    />
+    >
+      <div
+        style={{
+          width: cardWidth,
+          height: cardHeight,
+          backgroundColor: "#FFFFFF",
+          backgroundImage: "url('/balatro-card-sprites.png')",
+          backgroundPosition: `${offsetX}px ${offsetY}px`,
+          backgroundRepeat: "no-repeat",
+          borderRadius: "4px",
+        }}
+      />
+    </div>
   );
 }

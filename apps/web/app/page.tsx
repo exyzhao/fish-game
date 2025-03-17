@@ -23,8 +23,10 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Card rank="A" suit="spades" />
-        <Card rank="Q" suit="hearts" />
+        <div>
+          <Card rank="10" suit="spades" />
+          <Card rank="Q" suit="hearts" />
+        </div>
         <ThemeImage
           className={styles.logo}
           srcLight="turborepo-dark.svg"
