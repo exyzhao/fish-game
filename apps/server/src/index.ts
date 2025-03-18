@@ -11,6 +11,6 @@ app.get('/api/ping', (req: Request, res: Response) => {
 const server = http.createServer(app)
 initWebSockets(server)
 
-app.listen(4000, () => {
+server.listen(4000, () => {
   console.log('Express server is running on port 4000')
 })
