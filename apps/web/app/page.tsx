@@ -2,24 +2,6 @@
 
 import { useState } from 'react'
 import { useWebSocketContext } from './context/WebSocketContext'
-import Image, { type ImageProps } from 'next/image'
-import StackedCards from './components/StackedCards'
-
-type Props = Omit<ImageProps, 'src'> & {
-  srcLight: string
-  srcDark: string
-}
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  )
-}
 
 const cardsToShow = [
   { rank: '2', suit: 'diamonds' },
