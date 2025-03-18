@@ -10,9 +10,14 @@ interface MyWebSocketServer extends WebSocketServer {
   clients: Set<MyWebSocket>
 }
 
+interface Player {
+  id: string
+  name: string
+}
+
 interface Game {
   gameId: string
-  lobbyPlayers: string[]
+  lobbyPlayers: Player[]
 }
 
 const GAMES: Record<string, Game> = {}
