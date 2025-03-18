@@ -1,8 +1,8 @@
 import http from 'http'
-import express, { Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express'
 import { initWebSockets } from '../sockets'
 
-const app = express()
+const app: Application = express()
 
 app.get('/api/ping', (req: Request, res: Response) => {
   res.send('pong')
@@ -11,6 +11,7 @@ app.get('/api/ping', (req: Request, res: Response) => {
 const server = http.createServer(app)
 initWebSockets(server)
 
-server.listen(4000, () => {
-  console.log('Express server is running on port 4000')
+const PORT = 4000
+server.listen(PORT, () => {
+  console.log(`Express server is running on port ${PORT}`)
 })
