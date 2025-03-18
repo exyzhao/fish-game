@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useWebSocketContext } from './context/WebSocketContext'
+import { ClientEvent } from '../../common/messages/clientMessages'
 
 const cardsToShow = [
   { rank: '2', suit: 'diamonds' },
@@ -22,9 +23,8 @@ export default function Home() {
       return
     }
     if (isConnected) {
-      sendMessage({
-        event: 'JOIN_GAME',
-        gameId,
+      sendMessage(ClientEvent.JOIN_LOBBY, {
+        lobbyId: gameId,
         playerName,
       })
     }
@@ -53,7 +53,11 @@ export default function Home() {
               onChange={(e) => setPlayerName(e.target.value)}
               required
             />
-            <button type="submit" disabled={!isConnected || waiting}>
+            <button
+              type="submit"
+              disabled={!isConnected || waiting}
+              className="cursor-pointer bg-sky-200"
+            >
               {waiting ? 'Joining...' : 'Join Lobby'}
             </button>
           </form>

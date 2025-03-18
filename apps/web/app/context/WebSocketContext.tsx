@@ -1,12 +1,12 @@
 'use client'
 
 import React, { createContext, useContext } from 'react'
-import useWebSocket from '../hooks/useWebSocket'
+import useWebSocket, { SendMessageFunction } from '../hooks/useWebSocket'
 
 const WebSocketContext = createContext<{
   isConnected: boolean
   messages: string[]
-  sendMessage: (message: object) => void
+  sendMessage: SendMessageFunction
 } | null>(null)
 
 export const WebSocketProvider = ({
