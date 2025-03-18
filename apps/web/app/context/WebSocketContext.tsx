@@ -14,7 +14,7 @@ export const WebSocketProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const ws = useWebSocket('ws://localhost:3000')
+  const ws = useWebSocket('ws://localhost:4000')
 
   return (
     <WebSocketContext.Provider value={ws}>{children}</WebSocketContext.Provider>
