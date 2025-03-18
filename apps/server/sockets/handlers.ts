@@ -1,78 +1,55 @@
-import { WebSocketServer, WebSocket } from 'ws'
-import { IncomingMessage } from 'http'
+import { WebSocket } from 'ws'
+import crypto from 'crypto'
 
-interface MyWebSocket extends WebSocket {
-  gameId?: string
-  playerId?: string
-}
+import { MyWebSocketServer, MyWebSocket } from '.'
+import { Lobby } from '../models'
+import { sendPrivateMessageToWs } from './sendingUtils'
+import { JoinLobbyData } from '../../common/messages/clientMessages'
+import { ServerEvent } from '../../common/messages/serverMessages'
 
-interface MyWebSocketServer extends WebSocketServer {
-  clients: Set<MyWebSocket>
-}
-
-interface Player {
-  id: string
-  name: string
-}
-
-interface Game {
-  gameId: string
-  lobbyPlayers: Player[]
-}
-
-const GAMES: Record<string, Game> = {}
+const LOBBIES: Record<string, Lobby> = {}
 
 export const handleJoinGame = (
   ws: MyWebSocket,
-  message: { gameId?: string; playerName?: string },
+  data: JoinLobbyData,
   wss: MyWebSocketServer,
 ) => {
-  const { gameId, playerName } = message
+  const { lobbyId, playerName } = data
 
-  if (!gameId || !playerName) {
-    return ws.send(
-      JSON.stringify({
-        event: 'ERROR',
-        error: 'Missing gameId or playerName',
-      }),
-    )
+  if (!ws.playerId) {
+    ws.playerId = crypto.randomUUID()
+  }
+
+  if (!lobbyId || !playerName) {
+    sendPrivateMessageToWs(ws, {
+      event: ServerEvent.ERROR,
+      data: {
+        error: 'Missing lobbyId or playerName',
+      },
+    })
+    return
   }
 
   // If game doesn't exist, create it
-  if (!GAMES[gameId]) {
-    GAMES[gameId] = {
-      gameId: gameId,
+  if (!LOBBIES[lobbyId]) {
+    LOBBIES[lobbyId] = {
+      lobbyId: lobbyId,
       lobbyPlayers: [],
     }
   }
 
-  const game = GAMES[gameId]
-}
+  const lobby = LOBBIES[lobbyId]
 
-// Helper function to broadcast a message to all clients in a game
-export const broadcastToGame = (
-  wss: MyWebSocketServer,
-  gameId: string,
-  data: object,
-) => {
-  const payload = JSON.stringify(data)
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client.gameId === gameId) {
-      client.send(payload)
-    }
+  lobby.lobbyPlayers.push({
+    id: ws.playerId,
+    name: playerName,
   })
-}
 
-// Helper function to send a private message to a specific client
-const sendPrivateMessage = (
-  wss: MyWebSocketServer,
-  clientId: string,
-  data: object,
-) => {
-  const payload = JSON.stringify(data)
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client.playerId === clientId) {
-      client.send(payload)
-    }
+  sendPrivateMessageToWs(ws, {
+    event: ServerEvent.JOIN_LOBBY_RESPONSE,
+    data: {
+      lobbyId: lobbyId,
+      success: true,
+    },
   })
 }
