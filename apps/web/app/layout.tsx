@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { WebSocketProvider } from './context/WebSocketContext'
+import Header from './components/Header'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -28,6 +29,7 @@ export default function RootLayout({
         {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
         <body className="bg-zinc-100 text-lg text-zinc-700">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <Header />
             {children}
           </div>
         </body>
