@@ -1,13 +1,18 @@
 import { WebSocketServer, WebSocket } from 'ws'
 import { IncomingMessage } from 'http'
-import { handleJoinGame } from './handlers'
 
-interface MyWebSocket extends WebSocket {
+import { handleJoinGame } from './handlers'
+import {
+  ClientEvent,
+  ClientMessage,
+} from '../../common/messages/clientMessages'
+
+export interface MyWebSocket extends WebSocket {
   gameId?: string
   playerId?: string
 }
 
-interface MyWebSocketServer extends WebSocketServer {
+export interface MyWebSocketServer extends WebSocketServer {
   clients: Set<MyWebSocket>
 }
 
@@ -18,17 +23,19 @@ export const initWebSockets = (server: import('http').Server) => {
     console.log('Client connected')
 
     ws.on('message', (msg: string) => {
-      let data: any
+      let clientMessage: ClientMessage
       try {
-        data = JSON.parse(msg)
+        clientMessage = JSON.parse(msg)
       } catch (e) {
-        ws.send(JSON.stringify({ error: 'Invalid JSON' }))
+        ws.send(JSON.stringify({ error: 'Receieved invalid JSON from client' }))
         return
       }
 
-      switch (data.event) {
-        case 'JOIN_GAME':
-          handleJoinGame(ws, data, wss)
+      console.log('Client message:', clientMessage)
+
+      switch (clientMessage.event) {
+        case ClientEvent.JOIN_LOBBY:
+          handleJoinGame(ws, clientMessage.data, wss)
           break
         default:
           ws.send(JSON.stringify({ error: 'Unknown event' }))
