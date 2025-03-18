@@ -1,3 +1,5 @@
+import { Card } from '../models'
+
 export enum ClientEvent {
   JOIN_LOBBY = 'JOIN_LOBBY',
   LEAVE_LOBBY = 'LEAVE_LOBBY',
@@ -14,8 +16,8 @@ export interface ClientEventMap {
   [ClientEvent.READY_UP]: {}
   [ClientEvent.DISCONNECT_GAME]: {}
   [ClientEvent.ASK_FOR_CARD]: AskForCardData
-  [ClientEvent.DECLARE_FISH]: {}
-  [ClientEvent.DECLARE_COUNTERFISH]: {}
+  [ClientEvent.DECLARE_FISH]: DeclareFishData
+  [ClientEvent.DECLARE_COUNTERFISH]: DeclareFishData
 }
 
 export interface JoinLobbyData {
@@ -24,7 +26,11 @@ export interface JoinLobbyData {
 }
 
 export interface AskForCardData {
-  todo_put_card_data_type_here: string
+  card: Card
+}
+
+export interface DeclareFishData {
+  [playerId: string]: Card[]
 }
 
 export type ClientMessage = {
