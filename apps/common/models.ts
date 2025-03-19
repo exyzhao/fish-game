@@ -21,7 +21,7 @@ export enum Rank {
   ACE = 'A',
 }
 
-export interface Card {
+export interface CardModel {
   suit: Suit
   rank: Rank
 }

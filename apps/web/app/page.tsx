@@ -33,35 +33,26 @@ export default function Home() {
   return (
     <div>
       <main>
-        <div className="max-w-2xl px-4">
-          <p>Enter a lobby code and your name to start/join a game.</p>
-          <form
-            className="flex max-w-72 flex-col gap-2"
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="text"
-              placeholder="Enter lobby code"
-              value={gameId}
-              onChange={(e) => setGameId(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              required
-            />
-            <button
-              type="submit"
-              disabled={!isConnected || waiting}
-              className="cursor-pointer bg-sky-200"
-            >
-              {waiting ? 'Joining...' : 'Join Lobby'}
-            </button>
-          </form>
-        </div>
+        <p>Enter a lobby code and your name to start/join a game.</p>
+        <form className="flex max-w-72 flex-col gap-2" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Enter lobby code"
+            value={gameId}
+            onChange={(e) => setGameId(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            required
+          />
+          <button type="submit" disabled={!isConnected || waiting}>
+            {waiting ? 'Joining...' : 'Join Lobby'}
+          </button>
+        </form>
       </main>
     </div>
   )

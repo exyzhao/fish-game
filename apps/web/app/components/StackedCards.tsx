@@ -1,10 +1,7 @@
+import { CardModel } from '../../../common/models'
 import { Card } from './Card'
 
-export default function StackedCards({
-  cards,
-}: {
-  cards: { rank: string; suit: string }[]
-}) {
+export default function StackedCards({ cards }: { cards: CardModel[] }) {
   return (
     <div className="relative h-[192px] w-[600px]">
       {cards.map((card, index) => (
@@ -16,7 +13,7 @@ export default function StackedCards({
             // transform: `rotate(${index * 5}deg)`,
           }}
         >
-          <Card rank={card.rank} suit={card.suit} />
+          <Card card={card} />
         </div>
       ))}
     </div>
