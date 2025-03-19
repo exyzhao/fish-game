@@ -1,4 +1,4 @@
-import { Card } from '../models'
+import { CardModel } from '../models.js'
 
 export enum ClientEvent {
   JOIN_LOBBY = 'JOIN_LOBBY',
@@ -27,11 +27,11 @@ export interface JoinLobbyData {
 
 export interface AskForCardData {
   playerId: string
-  card: Card
+  card: CardModel
 }
 
 export interface DeclareFishData {
-  [playerId: string]: Card[]
+  [playerId: string]: CardModel[]
 }
 
 export type ClientMessage = {

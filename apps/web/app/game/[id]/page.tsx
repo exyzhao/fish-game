@@ -1,11 +1,7 @@
 'use client'
 
 import StackedCards from '../../components/StackedCards'
-import {
-  CardModel,
-  Rank,
-  Suit,
-} from '../../../../../packages/shared-types/models'
+import { CardModel, Rank, Suit } from '@repo/shared-types/models'
 
 const cardsToShow: CardModel[] = [
   { rank: Rank.TWO, suit: Suit.DIAMONDS },

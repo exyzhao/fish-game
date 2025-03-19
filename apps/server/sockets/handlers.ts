@@ -4,8 +4,7 @@ import crypto from 'crypto'
 import { MyWebSocketServer, MyWebSocket } from '.'
 import { Lobby } from '../models'
 import { sendPrivateMessageToWs } from './sendingUtils'
-import { JoinLobbyData } from '../../common/messages/clientMessages'
-import { ServerEvent } from '../../common/messages/serverMessages'
+import { JoinLobbyData, ServerEvent } from '@repo/shared-types'
 
 const LOBBIES: Record<string, Lobby> = {}
 

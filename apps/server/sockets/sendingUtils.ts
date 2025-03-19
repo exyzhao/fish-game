@@ -1,5 +1,5 @@
 import { MyWebSocket, MyWebSocketServer } from '.'
-import { ServerMessage } from '../../common/messages/serverMessages'
+import { ServerMessage } from '@repo/shared-types'
 
 // Helper function to broadcast a message to all clients in a game
 export const broadcastToGame = (

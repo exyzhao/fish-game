@@ -2,10 +2,7 @@ import { WebSocketServer, WebSocket } from 'ws'
 import { IncomingMessage } from 'http'
 
 import { handleJoinGame } from './handlers'
-import {
-  ClientEvent,
-  ClientMessage,
-} from '../../common/messages/clientMessages'
+import { ClientEvent, ClientMessage } from '@repo/shared-types'
 
 export interface MyWebSocket extends WebSocket {
   gameId?: string

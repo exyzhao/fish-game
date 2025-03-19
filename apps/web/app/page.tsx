@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useWebSocketContext } from './context/WebSocketContext'
-import { ClientEvent } from '../../../packages/shared-types/messages/clientMessages'
+import { ClientEvent } from '@repo/shared-types/messages/clientMessages'
 
 const cardsToShow = [
   { rank: '2', suit: 'diamonds' },
