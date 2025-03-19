@@ -1,31 +1,22 @@
 {
   "name": "@repo/shared-types",
-  "version": "1.0.0",
-  "exports": {
-    "./*": {
-      "types": "./src/*.ts",
-      "default": "./dist/*.js"
-    }
-  },
+  "type": "module",
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit",
     "dev": "tsc --watch",
     "build": "tsc"
   },
-  "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@turbo/gen": "^2.4.4",
-    "@types/node": "^22.13.9",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
-    "eslint": "^9.22.0",
-    "typescript": "5.8.2"
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
   },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "typescript": "latest"
   }
 }

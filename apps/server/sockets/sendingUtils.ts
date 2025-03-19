@@ -1,8 +1,5 @@
 import { MyWebSocket, MyWebSocketServer } from '.'
-import {
-  ServerMessage,
-  ServerEvent,
-} from '@repo/shared-types/messages/serverMessages'
+import { ServerMessage, ServerEvent } from '@repo/shared-types'
 import { LobbyId } from '../models'
 
 // Helper function to broadcast a message to all clients in a game

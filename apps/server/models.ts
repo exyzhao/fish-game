@@ -3,13 +3,6 @@ import { PlayerId, Player } from '@repo/shared-types/models/players'
 
 export type LobbyId = string
 
-// TODO: generate random fun team names
-// TODO: generate random fun profile pictures
-export enum Team {
-  RED = 'RED',
-  BLUE = 'BLUE',
-}
-
 export interface Lobby {
   lobbyId: LobbyId
   lobbyPlayers: Player[]

@@ -1,8 +1,7 @@
 /* Messages sent from the server to the client */
 
-import { Team } from '../../../apps/server/models'
-import { Player, PlayerId } from '../models/players'
-import { CardModel } from '../models/cards'
+import { Player, PlayerId, Team } from '../models/players.js'
+import { CardModel } from '../models/cards.js'
 
 export enum ServerEvent {
   ERROR = 'ERROR',
