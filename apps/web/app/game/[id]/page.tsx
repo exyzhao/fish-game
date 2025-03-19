@@ -1,12 +1,13 @@
 'use client'
 
 import StackedCards from '../../components/StackedCards'
+import { CardModel, Rank, Suit } from '../../../../common/models'
 
-const cardsToShow = [
-  { rank: '2', suit: 'diamonds' },
-  { rank: '10', suit: 'clubs' },
-  { rank: 'K', suit: 'hearts' },
-  { rank: 'A', suit: 'spades' },
+const cardsToShow: CardModel[] = [
+  { rank: Rank.TWO, suit: Suit.DIAMONDS },
+  { rank: Rank.TEN, suit: Suit.CLUBS },
+  { rank: Rank.KING, suit: Suit.HEARTS },
+  { rank: Rank.ACE, suit: Suit.SPADES },
 ]
 
 export default function GamePage() {
