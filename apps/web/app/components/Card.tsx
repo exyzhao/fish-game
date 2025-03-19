@@ -1,4 +1,4 @@
-import { CardModel } from '../../../common/models'
+import { CardModel } from '../../../../packages/shared-types/models'
 
 const CARD_WIDTH = 71
 const CARD_HEIGHT = 95

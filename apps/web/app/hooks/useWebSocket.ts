@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { ClientEventMap } from '../../../common/messages/clientMessages'
+import { ClientEventMap } from '../../../../packages/shared-types/messages/clientMessages'
 
 export type SendMessageFunction = <E extends keyof ClientEventMap>(
   event: E,

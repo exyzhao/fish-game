@@ -1,4 +1,4 @@
-import { CardModel } from '../../../common/models'
+import { CardModel } from '../../../../packages/shared-types/models'
 import { Card } from './Card'
 
 export default function StackedCards({ cards }: { cards: CardModel[] }) {
