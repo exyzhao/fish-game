@@ -1,9 +1,12 @@
-import { Card } from '../models'
+/* Messages sent from the client to the server */
+
+import { CardModel } from '../models/cards'
+import { PlayerId } from '../models/players'
 
 export enum ClientEvent {
   JOIN_LOBBY = 'JOIN_LOBBY',
   LEAVE_LOBBY = 'LEAVE_LOBBY',
-  READY_UP = 'READY_UP',
+  HOST_START_GAME = 'HOST_START_GAME',
   DISCONNECT_GAME = 'DISCONNECT_GAME',
   ASK_FOR_CARD = 'ASK_FOR_CARD',
   DECLARE_FISH = 'DECLARE_FISH',
@@ -13,7 +16,7 @@ export enum ClientEvent {
 export interface ClientEventMap {
   [ClientEvent.JOIN_LOBBY]: JoinLobbyData
   [ClientEvent.LEAVE_LOBBY]: {}
-  [ClientEvent.READY_UP]: {}
+  [ClientEvent.HOST_START_GAME]: {}
   [ClientEvent.DISCONNECT_GAME]: {}
   [ClientEvent.ASK_FOR_CARD]: AskForCardData
   [ClientEvent.DECLARE_FISH]: DeclareFishData
@@ -26,12 +29,12 @@ export interface JoinLobbyData {
 }
 
 export interface AskForCardData {
-  playerId: string
-  card: Card
+  targetPlayer: PlayerId
+  card: CardModel
 }
 
 export interface DeclareFishData {
-  [playerId: string]: Card[]
+  [playerId: string]: CardModel[]
 }
 
 export type ClientMessage = {
