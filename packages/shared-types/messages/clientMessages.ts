@@ -26,6 +26,7 @@ export interface JoinLobbyData {
 }
 
 export interface AskForCardData {
+  playerId: string
   card: Card
 }
 
