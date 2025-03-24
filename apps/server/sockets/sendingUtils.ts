@@ -1,15 +1,16 @@
 import { MyWebSocket, MyWebSocketServer } from '.'
-import { ServerMessage } from '@repo/shared-types'
+import { ServerMessage, ServerEvent } from '@repo/shared-types'
+import { LobbyId } from '../models'
 
 // Helper function to broadcast a message to all clients in a game
-export const broadcastToGame = (
+export const broadcastToLobby = (
   wss: MyWebSocketServer,
-  gameId: string,
-  data: object,
+  lobbyId: LobbyId,
+  message: ServerMessage,
 ) => {
-  const payload = JSON.stringify(data)
+  const payload = JSON.stringify(message)
   wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client.gameId === gameId) {
+    if (client.readyState === WebSocket.OPEN && client.lobbyId === lobbyId) {
       client.send(payload)
     }
   })
@@ -19,9 +20,9 @@ export const broadcastToGame = (
 export const sendPrivateMessage = (
   wss: MyWebSocketServer,
   clientId: string,
-  data: object,
+  message: ServerMessage,
 ) => {
-  const payload = JSON.stringify(data)
+  const payload = JSON.stringify(message)
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN && client.playerId === clientId) {
       client.send(payload)
@@ -35,4 +36,12 @@ export const sendPrivateMessageToWs = (
   message: ServerMessage,
 ) => {
   ws.send(JSON.stringify(message))
+}
+
+// It's pretty common to send an error message back to the websocket directly
+export const sendErrorToWs = (ws: MyWebSocket, error: string) => {
+  sendPrivateMessageToWs(ws, {
+    event: ServerEvent.ERROR,
+    data: { error },
+  })
 }
